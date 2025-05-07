@@ -1,0 +1,104 @@
+오늘 배운 것
+
+algorithms : like a recipe
+
+READ.ME 쓰는 방법
+    사실 마켓리스트 수정하느라 안 들음 
+    근데 깃허브로 수정해서 싹 하면 싹 되는데 ^^
+
+Spread Grammar
+    ✅ 문자열 배열로 펼치기
+    [...string] 
+    ex) 
+        let str = "world'
+        [...str] // ['w', 'o', 'r', 'l', 'd']
+
+        * 합치기
+        let letters = [...str, ' ', 'and Asia'] // ['w', 'o', 'r', 'l', 'd', ' ', 'and Asia']
+
+        [..."hello"] // ['h', 'e', 'l', 'l', 'o']
+        [..."hello"][1] 가능 
+
+    ----------------------------------------------------------------
+
+    ...str → spread 연산자로, 배열이나 이터러블 객체(문자열도 포함)를 펼칠 수 있음.
+
+    [...str] → 문자열을 배열로 변환 (한 글자씩).
+
+    str.split("") → 같은 결과이지만, 문자열 메서드. (구식, ...이 추세임)
+
+    ----------------------------------------------------------------
+
+    const shift = {
+        shiftId: '1', workPlace: 'L.A', workers: [],
+        start: "", end: "",
+
+        // ES6 enhanced object literals
+        startShift(startTime = '8:00') {
+            console.log(`Shift started! ${startTime}`);
+        },
+        endShift(endTime = '0:00') {
+            console.log(`Shift started! ${startTime}`);
+        },
+        workerForShift(w1, w2, w3) {
+            console.log(`Worker at first shift ${w1}, ${w2} and ${w3}`);
+        }
+    };
+
+    let arrWorkers = [
+        prompt("print first worker"),
+        prompt("print first worker"),
+        prompt("print first worker")
+    ];
+
+    shiftCopy.workerForShift(...arrWorkers); // ✅ 배열 인자 펼치기 --> 파라미터를 여러개 받는 함수에 넣을 때 유용 (파라미터 하나면 for문 돌려야 됨)
+
+    ----------------------------------------------------------------
+    
+    ✅ 펼치기 정리
+    - 늘어놓을 때 간편하게 ... 쓰면 됨
+    - 문자나 배열 인자 합칠 때 유용 
+    - 함수에 넣을 때 : 보통 함수는 파라미터를 하나만 갖지만 여러개 있을 때 유용 
+
+    const name = 'Tom';
+    const arr = ['Alice', 'Bob', 'Charlie'];
+
+    function greet(a, b, c) {
+    console.log(a, b, c);
+    }
+
+    greet(...arr);       // Alice Bob Charlie
+    greet(...name);      // T o m
+
+    ----------------------------------------------------------------
+
+    const [a, b] = [...restaurant.shiftsWorkers]; // 두 배열이 든 배열을 펼쳐서 객체구조분해할당 
+    const allWorkers = [...a, ...b];
+    console.log(allWorkers);
+
+    for(const item of allWorkers) {
+        console.log(item);
+    }
+
+    ⭐ **entries()**는 배열의 각 요소에 대한 인덱스와 값을 포함하는 배열을 반환합니다.
+        entries()는 **[index, value]**의 형태로 각 요소를 반환합니다.
+        그래서 item은 배열의 **[인덱스, 값]**을 포함하는 배열이 됩니다.
+        
+    for(const item of allWorkers.entries()) {
+        console.log(item);
+    }
+
+    for(const [i, el] of allWorkers.entries()) {
+        console.log(`${i + 1}. ${el}`);
+    }
+
+Boolean
+    3 > 2 > 1 // false
+    ㄴ> true > 1 // 왜냐면 이딴식으로 작동함 
+    불린은 등호를 매길 수 없음 
+
+    ||: 왼쪽 값이 Falsy(0, false, null, undefined, NaN, 빈 문자열 등)일 경우 오른쪽 값을 반환.
+    ??: 왼쪽 값이 **null**이나 **undefined**일 경우에만 오른쪽 값을 반환.
+
+    함수 비교 시 둘 다 호출되며 '리턴값'으로 비교함 
+    리턴값이 없다면 undefined 반환 

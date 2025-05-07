@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>Remove Name</h1>
+        <input type="text" id="name" placeholder="remove name" />
+        <button onclick="removeNames()">Remove Name</button>
+        <ul id="items">
+            <!-- <li>Mike</li>
+            <li>David</li>
+            <li>Suzan</li> -->
+        </ul>
+
+        <!-- manage names in script -->
+        <script>
+            const nameArr = ["Mike", "David", "Suzan"];
+
+            // draw first
+            drawNames(nameArr);
+
+            function removeNames() {
+                const $input = document.querySelector("input#name");
+
+                nameArr.forEach((name, index) => {
+                    if ($input.value == name) {
+                        nameArr.splice(index, 1);
+                    }
+                });
+
+                drawNames(nameArr);
+            }
+
+            function drawNames(arr) {
+                $ul = document.querySelector("#items");
+                $ul.innerHTML = "";
+                arr.forEach((name) => {
+                    $ul.innerHTML += `<li>${name}</li>`;
+                });
+            }
+        </script>
+
+        <!-- just display none -->
+        <!-- <script>
+            function removeNames() {
+                const $input = document.querySelector("input#name");
+                const $listItems = document.querySelectorAll("#items > li");
+
+                $listItems.forEach((item, index) => {
+                    if ($input.value == item.innerText) {
+                        item.style.display = "none";
+                    }
+                });
+            }
+        </script> -->
+    </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Super Page!</title>
+    </head>
+    <body>
+        <h1>Hello!</h1>
+        <p id="p1">This is a paragraph!!!</p>
+        <p id="p2">This is another paragraph</p>
+
+        <ul id="my-list"></ul>
+    </body>
+    <script>
+        let newLi = document.createElement("li");
+        newLi.innerText = "This is my new text";
+        let element = document.getElementById("my-list");
+        element.appendChild(newLi);
+
+        const pElement = document.querySelector("#p1");
+        const theText = pElement.innerText;
+        console.log(theText);
+
+        const p = document.createElement("p");
+        p.id = "p2"; // js의 id 지정 방법 
+        p.textContent = "This is another paragraph hahahaha";
+        document.querySelector("body").append(p);
+    </script>
+</html>

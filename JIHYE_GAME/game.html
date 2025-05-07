@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="./game.css" />
+        <script defer src="./game.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    </head>
+    <body>
+        <div id="whole-wrapper" class="display-flex-set">
+            <h1>All glory goes to my fav dish</h1>
+            <div id="game-wrapper">
+                <!-- modal -->
+                <div id="game-modal" class="display-flex-set">
+                    <div id="modal-bg" class="display-flex-set"></div>
+                </div>
+
+                <div id="before-start" class="display-flex-set">
+                    <div id="before-txt-wrap">
+                        <p>MAKE JIHYE's <span>CHIPOTLE</span></p>
+                        <img src="./img/three-bowls.png" />
+                    </div>
+                    <div id="before-btn-wrap" class="display-flex">
+                        <button id="rule-btn" class="btn-hover">RULES</button>
+                        <button id="start-btn" class="btn-hover">START</button>
+                    </div>
+                </div>
+
+                <div id="after-start">
+                    <div id="game-header" class="display-flex">
+                        <button id="home-btn" class="btn-hover display-flex-set"><img src="./img/home.png" alt="" /></button>
+                        <div id="game-recipe" class="display-flex-set">
+                            <ul id="game-recipe-wrap" class="display-flex-set">
+                                <li class="display-flex-set"><img src="./img/rice.png" /></li>
+                                <li class="display-flex-set"><img src="./img/chicken.png" /></li>
+                                <li class="display-flex-set"><img src="./img/beans.png" /></li>
+                                <li class="display-flex-set"><img src="./img/bell-pepper.png" /></li>
+                                <li class="display-flex-set"><img src="./img/romaine.png" /></li>
+                                <li class="display-flex-set"><img src="./img/cheese.png" /></li>
+                                <li class="display-flex-set"><img src="./img/salsa.png" /></li>
+                                <li class="display-flex-set"><img src="./img/sour-cream.png" /></li>
+                                <li id="bowl-count" class="display-flex-set"></li>
+                            </ul>
+                        </div>
+                        <div id="header-inform" class="display-flex">
+                            <div id="header-nick">name : <span></span></div>
+                            <div id="header-score"></div>
+                        </div>
+                    </div>
+
+                    <div id="game-body" class="display-flex">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div>
+                            <img id="bowl" src="./img/bowl.png" alt="" />
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

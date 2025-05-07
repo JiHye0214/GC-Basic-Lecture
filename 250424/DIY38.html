@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>DIY 38</title>
+    </head>
+    <body>
+        <h1>Please add friends 💕</h1>
+        <input type="text" id="friend" placeholder="Add a Friend" />
+        <button onclick="addFriend()">Add a Friend</button>
+        <ul id="myFriends"></ul>
+    </body>
+    <script>
+        function addFriend() {
+            const $ul = document.querySelector("ul#myFriends");
+            const $input = document.querySelector("input#friend");
+            $ul.innerHTML += `<li>${$input.value}</li>`;
+        }
+    </script>
+</html>

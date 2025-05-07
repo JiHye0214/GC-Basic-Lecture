@@ -1,0 +1,281 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+
+:root {
+    --chipotle-red: #ad1e11;
+    --chipotle-brown: #420d00;
+    --chipotle-yellow: #ffda00;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Noto Sans KR", sans-serif;
+    color: #333;
+
+    list-style: none;
+}
+
+.btn-hover:hover {
+    cursor: pointer;
+}
+
+.display-flex {
+    display: flex;
+}
+.display-flex-set {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* whole --------------------------------------------------- */
+#whole-wrapper {
+    height: 100vh;
+    margin: 0 auto;
+    flex-direction: column;
+    gap: 30px;
+}
+
+#game-wrapper {
+    width: 800px;
+    height: 600px;
+    background-color: black;
+    position: relative;
+}
+
+/* before --------------------------------------------------- */
+#before-start {
+    width: 800px;
+    height: 600px;
+    position: absolute;
+    overflow: hidden;
+    z-index: 100;
+
+    background-image: url(./img/wood.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    flex-direction: column;
+    gap: 170px;
+}
+
+#game-modal {
+    position: absolute;
+    width: 800px;
+    height: 600px;
+    background-color: rgba(220, 220, 220, 0.489);
+    display: none;
+    z-index: 1000;
+}
+#modal-bg {
+    width: 500px;
+    height: 330px;
+    border-radius: 15px;
+    background-color: white;
+    flex-direction: column;
+    gap: 20px;
+}
+#modal-bg #modal-btn-wrap {
+    gap: 20px;
+}
+#modal-bg button {
+    padding: 10px 20px;
+    background-color: var(--chipotle-red);
+    border: none;
+    border-radius: 40px;
+    font-size: 20px;
+    font-weight: 800;
+    color: white;
+}
+#modal-bg p {
+    width: 417px;
+}
+#modal-bg #modal-key-wrap > img {
+    width: 60px;
+}
+#modal-bg input {
+    width: 417px;
+    height: 50px;
+    outline: none;
+    border: 2px solid lightgray;
+    border-radius: 50px;
+    padding: 15px;
+    margin: 20px 0;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+#before-txt-wrap {
+    width: 630px;
+    font-weight: 800;
+    font-size: 60px;
+    position: relative;
+}
+#before-txt-wrap p {
+    color: #ffda00;
+    line-height: 80px;
+}
+#before-txt-wrap span {
+    font-size: 70px;
+    color: white;
+}
+#before-txt-wrap img {
+    position: absolute;
+    width: 380px;
+    top: 15px;
+    right: -155px;
+
+    animation: intro 0.6s ease-out;
+}
+@keyframes intro {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+#before-btn-wrap {
+    width: 630px;
+    gap: 25px;
+}
+#before-btn-wrap > button {
+    background-color: var(--chipotle-red);
+    padding: 20px 30px;
+    border: none;
+    border-radius: 45px;
+    font-size: 35px;
+    font-weight: 800;
+    color: white;
+
+    &:hover {
+        background-color: var(--chipotle-brown);
+        transform: scale(1.1);
+    }
+}
+
+/* after --------------------------------------------------- */
+#after-start {
+    width: 800px;
+    height: 600px;
+    padding: 20px;
+    background-color: rgb(233, 227, 202);
+    position: absolute;
+    z-index: 99;
+}
+
+#game-header {
+    justify-content: space-between;
+}
+#home-btn {
+    width: 60px;
+    height: 60px;
+    background-color: var(--chipotle-red);
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+
+    &:hover {
+        background-color: var(--chipotle-brown);
+    }
+}
+#home-btn > img {
+    width: 35px;
+}
+#header-inform {
+    flex-direction: column;
+    text-align: right;
+}
+#header-nick {
+    font-size: 20px;
+    font-weight: 800;
+}
+#header-score {
+    font-size: 35px;
+    font-weight: 800;
+}
+
+#game-recipe {
+    width: 520px;
+    height: 60px;
+    background-color: #7a5551;
+    border-radius: 10px;
+}
+#game-recipe-wrap {
+    gap: 7px;
+}
+#game-recipe-wrap li {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    background-color: var(--chipotle-brown);
+
+    &:last-child {
+        background-color: black;
+        color: white;
+        font-size: 25px;
+        font-weight: 800;
+        line-height: 1;
+    }
+}
+#game-recipe-wrap img {
+    width: 35px;
+}
+
+#game-body {
+    position: absolute;
+    width: 800px;
+    height: 600px;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    overflow: hidden;
+}
+#game-body > div {
+    width: 100px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+}
+#bowl {
+    width: 100px;
+    position: absolute;
+    bottom: 0;
+    z-index: -2;
+}
+
+.downImg {
+    width: 60px;
+    position: absolute;
+    animation: moveDown 3s linear;
+}
+@keyframes moveDown {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(500px);
+    }
+}
+
+#game-result-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-size: 18px;
+    font-weight: 800;
+    margin: 15px 0;
+}
+.game-result {
+    width: 417px;
+    display: flex;
+    justify-content: space-between;
+    background: #ffd200;
+    padding: 10px 20px;
+    border-radius: 15px;
+}

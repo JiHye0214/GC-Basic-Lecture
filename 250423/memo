@@ -1,0 +1,9 @@
+object has properties which can be any type
+- function we can call "method"
+===> method : a function belongs to object
+
+<li> "List Item" short version
+<ul> unorder list
+<ol> order list
+
+append <-> prepend
