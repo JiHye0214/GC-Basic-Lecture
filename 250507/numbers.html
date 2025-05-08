@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <!-- calculate days -->
+        <script>
+            const day1 = new Date(2021, 10, 25);
+            const day2 = new Date(2024, 5, 25);
+
+            const calcNumOfdays = (d1, d2) => Math.abs(d1 - d2) / (1000 * 60 * 60 * 24);
+
+            const days = calcNumOfdays(day1, day2);
+
+            console.log(days);
+        </script>
+
+        <!-- timer -->
+        <h1>Timer</h1>
+        <p id="timer"></p>
+        <script>
+            const timer = document.getElementById("timer");
+
+            function startCounting(lol) {
+                lol.innerText = Number(timer.innerText) + 1;
+            }
+
+            setInterval(startCounting, 1000, timer);
+        </script>
+
+        <!-- random number -->
+        <h1>Number</h1>
+        <p>Between 1 and 100</p>
+        <p id="displayNumber"></p>
+        <script>
+            // my code
+            // 랜덤숫자 생성 함수 / 랜딩함수
+            // 아니 쌤 거 함수를 많이 만들어서 뭐지 싶었는데 가독성이 좋은 듯...
+            const pText = document.getElementById("displayNumber");
+
+            function makeNum(maxNum) {
+                return Math.ceil(Math.random() * maxNum);
+            }
+            function getRand() {
+                pText.innerHTML = makeNum(100);
+            }
+            setInterval(getRand, 1000);
+
+            // teacher code
+            // 랜덤숫자 생성 함수 / 넣을 자리 지정 함수 / 총랜딩함수 
+            // function getRand(maxNum) {
+            //     return Math.ceil(Math.random() * maxNum);
+            // }
+            // function setValue(element, value) {
+            //     element.innerHTML = value;
+            // }
+            // function displayRandomNum(manNum) {
+            //     const num = getRand(maxNum);
+            //     setValue(pText, num);
+            // }
+            // setInterval(displayRandomNum, 1000, 100);
+        </script>
+    </body>
+</html>
