@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <!-- <script>
+            function Item(name, SKU, onSale, description) {
+                this.name = name;
+                this.SKU = SKU;
+                this.onSale = onSale;
+                this.description = description;
+            }
+            function ShoppingCart() {
+                this.itemList = [];
+                this.addItem = function (item) {
+                    this.itemList.push(item);
+                };
+                this.removeItem = function (product) {
+                    this.itemList.forEach((item, index) => {
+                        if (item === product) {
+                            this.itemList.splice(index, 1);
+                        }
+                    });
+                };
+            }
+
+            const carrot = new Item("carrot", "crt-001", true, "just carrot");
+            const melon = new Item("melon", "mln-001", true, "just melon");
+
+            const myCart = new ShoppingCart();
+            myCart.addItem(carrot);
+            myCart.addItem(melon);
+            myCart.removeItem(carrot);
+        </script> -->
+
+        <script>
+            // to go home
+
+            class Item {
+                constructor(name, SKU, onSale, description) {
+                    this.name = name;
+                    this.SKU = SKU;
+                    this.onSale = onSale;
+                    this.description = description;
+                }
+            }
+            class Origin extends Item {
+                constructor(name, SKU, onSale, description, country, city, region) {
+                    super(name, SKU, onSale, description);
+                    this.country = country;
+                    this.city = city;
+                    this._region = region;
+                }
+
+                get region() {
+                    return this._region;
+                }
+                set retion(newRegion) {
+                    this._region = newRegion;
+                }
+            }
+            class ShoppingCart {
+                constructor() { // 아 인자 없으면 걍 비우면 되는구나 
+                    this.itemList = [];
+                }
+
+                addItem(item) {
+                    this.itemList.push(item);
+                }
+
+                removeItem(product) {
+                    this.itemList = this.itemList.filter((item) => item !== product);
+                }
+            }
+
+            const carrot = new Origin("carrot", "crt-001", true, "just carrot", "South Korea", "Seoul", "Gang-Nam");
+            const melon = new Origin("melon", "mln-001", true, "just melon", "South Korea", "Seoul", "Gang-Nam");
+
+            const myCart = new ShoppingCart();
+            myCart.addItem(carrot);
+            myCart.addItem(melon);
+            myCart.removeItem(carrot);
+            console.log(myCart.itemList);
+        </script>
+    </body>
+</html>
