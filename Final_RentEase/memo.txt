@@ -1,0 +1,41 @@
+✔️ Goals 
+    • Multiple Pages 
+    • User Friendly View 
+    • Responsiveness 
+    • Interactive 
+    • Forms With Validation 
+    • Local Store Management
+
+✔️ Environments
+    • Browser 
+    • Responsive: Desktop, Tablets and Smartphones
+
+✔️ Entities
+    User 
+        Email (String)
+        Password (String)
+        FirstName (String)
+        LastName (String)
+        BirthDate (Date)
+
+    Flat
+        City (String)
+        StreetName (String)
+        StreetNumber (Number)
+        AreaSize (Number)
+        HasAC (Boolean)
+        YearBuilt (Number)
+        RentPrice (Number)
+        DateAvailable (Date)
+
+✔️ check
+
+    DB연결
+        name : localStorage
+            근데 js만으로 db를 연결 좀 그래 --- api 생성 
+
+    
+    배운 거 최대한 써먹기 
+
+✅ 수업시간 용어 짬짬이 
+map : key/value store 

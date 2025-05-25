@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon" />
+        <link rel="stylesheet" href="../css/newFlat.css" />
+        <link rel="stylesheet" href="../css/common.css" />
+        <script defer src="../js/newFlat.js"></script>
+        <script defer src="../js/common.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+        <title>RentEase - New Flat</title>
+    </head>
+    <body>
+        <div class="background">
+            <!-- common header -->
+            <header>
+                <nav class="display-flex-set">
+                    <a href="../pages/home.html"><img id="header-logo" class="btn-hover" src="../img/logo.png" alt="" /></a>
+                    <a href="../pages/allFlats.html">All Flats</a>
+                    <a href="../pages/newFlat.html">New Flat</a>
+                </nav>
+
+                <div id="header-user" class="display-flex-set">
+                    <a href="../pages/profileUpdate.html" id="header-hello" class="btn-hover">Hello, <span>JIHE PARK</span></a>
+                    <!-- <button id="header-login" class="btn-hover">Log in</button> -->
+                    <button id="header-logout">Log out</button>
+                </div>
+            </header>
+
+            <main class="display-flex-set">
+                <form id="new-slide-frame">
+                    <div class="slide-item show display-flex-set">
+                        <h1>Creat New Flat Post ✏️</h1>
+                        <button id="new-start-btn" class="slide-btn next" data-slide="0" type="button">Start</button>
+                    </div>
+                    <div class="slide-item display-flex-set">
+                        <h2>1st. Enter address</h2>
+                        <div id="address-wrap">
+                            <input id="city" type="text" data-span="0" placeholder="City" />
+                            <input id="stName" type="text" data-span="1" placeholder="Street name" />
+                            <input id="stNum" type="number" data-span="2" placeholder="Street number" />
+                        </div>
+                        <div class="slide-btn-wrap">
+                            <button class="slide-btn" data-slide="1" type="button">Prev</button>
+                            <button class="slide-btn next" data-slide="1" type="button">Next</button>
+                        </div>
+                    </div>
+                    <div class="slide-item display-flex-set">
+                        <h2>2nd. Enter area size</h2>
+                        <div>
+                            <input id="area" type="number" data-span="3" />
+                            <span>㎡</span>
+                        </div>
+                        <div class="slide-btn-wrap">
+                            <button class="slide-btn" data-slide="2" type="button">Prev</button>
+                            <button class="slide-btn next" data-slide="2" type="btton">Next</button>
+                        </div>
+                    </div>
+                    <div class="slide-item display-flex-set">
+                        <h2>3rd. Choose AC state</h2>
+                        <input type="hidden" id="ac" data-span="4" />
+                        <ul id="new-ac" class="display-flex">
+                            <li class="display-flex-set btn-hover">Y</li>
+                            <li class="display-flex-set btn-hover">N</li>
+                        </ul>
+                        <div class="slide-btn-wrap">
+                            <button class="slide-btn" data-slide="3" type="button">Prev</button>
+                            <button class="slide-btn next" data-slide="3" type="button">Next</button>
+                        </div>
+                    </div>
+                    <div class="slide-item display-flex-set">
+                        <h2>4th. Enter year built</h2>
+                        <input id="year" type="number" data-span="5" min="1900" max="2099" placeholder="2025" step="1" />
+                        <div class="slide-btn-wrap">
+                            <button class="slide-btn" data-slide="4" type="button">Prev</button>
+                            <button class="slide-btn next" data-slide="4" type="button">Next</button>
+                        </div>
+                    </div>
+                    <div class="slide-item display-flex-set">
+                        <h2>5th. Enter rent price</h2>
+                        <div>
+                            <span>$</span>
+                            <input id="price" type="number" data-span="6" min="0" />
+                        </div>
+                        <div class="slide-btn-wrap">
+                            <button class="slide-btn" data-slide="5" type="button">Prev</button>
+                            <button class="slide-btn next" data-slide="5" type="button">Next</button>
+                        </div>
+                    </div>
+                    <div class="slide-item display-flex-set">
+                        <h2>6th. Enter date available</h2>
+                        <input id="available" type="date" data-span="7" />
+                        <div class="slide-btn-wrap">
+                            <button class="slide-btn" data-slide="6" type="button">Prev</button>
+                            <button class="slide-btn next" data-slide="6" type="button">Next</button>
+                        </div>
+                    </div>
+                    <div class="slide-item display-flex-set">
+                        <h2>Fin. Check your flat</h2>
+                        <ul id="slide-final-wrap">
+                            <!-- 주소, 규모, AC, 연도, 가격, 날짜 -->
+                            <li>
+                                <span>Address</span>
+                                <div>
+                                    <span class="result"></span>
+                                    <span class="result"></span>
+                                    <span class="result"></span>
+                                </div>
+                            </li>
+                            <li>
+                                <span>Size</span>
+                                <div>
+                                    <span class="result"></span>
+                                    <span>㎡</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span>AC</span>
+                                <span class="result"></span>
+                            </li>
+                            <li>
+                                <span>Year</span>
+                                <span class="result"></span>
+                            </li>
+                            <li>
+                                <span>Price</span>
+                                <div>
+                                    <span>$</span>
+                                    <span class="result"></span>
+                                </div>
+                            </li>
+                            <li>
+                                <span>Available</span>
+                                <span class="result"></span>
+                            </li>
+                        </ul>
+                        <div class="slide-btn-wrap">
+                            <button class="slide-btn" data-slide="7" type="button">Prev</button>
+                            <button id="upload-btn" type="button">Upload</button>
+                        </div>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </body>
+</html>

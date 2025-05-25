@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon" />
+        <link rel="stylesheet" href="../css/profileUpdate.css" />
+        <link rel="stylesheet" href="../css/common.css" />
+        <script defer src="../js/profileUpdate.js"></script>
+        <script defer src="../js/common.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+        <title>RentEase - Profile Update</title>
+    </head>
+    <body>
+        <div class="background">
+            <!-- common header -->
+            <header>
+                <nav class="display-flex-set">
+                    <a href="../pages/home.html"><img id="header-logo" class="btn-hover" src="../img/logo.png" alt="" /></a>
+                    <a href="../pages/allFlats.html">All Flats</a>
+                    <a href="../pages/newFlat.html">New Flat</a>
+                </nav>
+
+                <div id="header-user" class="display-flex-set">
+                    <!-- 근데 난 프사로 해 놓고 마이페이지 들어가는 게 좋은뎁... -->
+                    <a href="../pages/profileUpdate.html" id="header-hello" class="btn-hover">Hello, <span>JIHE PARK</span></a>
+                    <!-- <button id="header-login" class="btn-hover">Log in</button> -->
+                    <button id="header-logout">Log out</button>
+                </div>
+            </header>
+
+            <main class="display-flex-set">
+                <form name="update-form" action="" class="display-flex-set">
+                    <h3 id="update-title">Profile Update</h3>
+                    <p id="warning-msg"></p>
+    
+                    <input id="email" type="text" placeholder="E-mail" value="qkrwlgp1526@gmail.com"/>
+                    <input id="pw" type="password" placeholder="New Password" />
+                    <input id="pwRe" type="password" placeholder="Confirm Password" />
+                    <input id="nameFirst" type="text" placeholder="First Name" value="Jihye"/>
+                    <input id="nameLast" type="text" placeholder="Last Name" value="Park"/>
+                    <input id="birth" type="date" value="2004-02-14"/>
+    
+                    <button type="button" id="update-btn" class="btn-hover">Update</button>
+                </form>
+            </main>
+        </div>
+    </body>
+</html>

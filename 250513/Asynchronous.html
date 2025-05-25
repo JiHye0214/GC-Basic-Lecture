@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body></body>
+    <script>
+        // old way.still exist
+        function getCountry(country) {
+            const req = new XMLHttpRequest();
+
+            // do it in background
+            req.open("GET", "https://restcountries.com/v2/name/" + countryInput.value);
+            req.send();
+            req.addEventListener("load", function () {
+                const [data] = JSON.parse(this.responseText);
+                console.log(data);
+
+                img.src = data.flag;
+                country.innerText = "country: " + data.name;
+                region.innerText = "region: " + data.region;
+                population.innerText = "population: " + data.population;
+                currency.innerText = "currency: " + data.currencies[0].name;
+                language.innerText = "language: " + data.languages[0].name;
+            });
+        }
+
+        // recently version
+        const div = document.querySelector(".flags");
+        div.style.opacity = 1;
+
+        function renderCountry(data) {
+            const html = `<div>
+		<img width="200" height="100" src="${data.flag}" />
+		<p id="country">${data.flag}</p>
+		<p id="region">${data.region}</p>
+		<p id="population">${data.population}</p>
+		<p id="language">${data.languages[0].name}</p>
+		<p id="currency">${data.currencies[0].name}</p>
+	</div>`;
+
+            div.insertAdjacentHTML("beforeend", html);
+        }
+
+        function getCountry(name) {
+            fetch(`https://restcountries.com/v2/name/${name}`, {
+                method: 'GET' // 지정 안 해 주면 get 
+            })
+                .then((response) => response.json())
+                .then((data) => renderCountry(data[0]));
+        }
+
+        getCountry("usa");
+    </script>
+</html>

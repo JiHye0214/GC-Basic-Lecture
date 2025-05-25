@@ -1,0 +1,30 @@
+form[name="signin-form"] {
+    flex-direction: column;
+    gap: 13px;
+}
+form[name="signin-form"] input {
+    width: 350px;
+    height: 50px;
+    padding: 0 15px;
+    border: thin solid lightgray;
+    border-radius: 10px;
+}
+form[name="signin-form"] button {
+    width: 350px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: var(--main-orange);
+    color: white;
+    font-weight: 600;
+}
+
+#home-logo img {
+    width: 250px;
+}
+
+#warning-msg {
+    height: 20px;
+    margin-top: 10px;
+    color: var(--main-orange);
+    font-size: 13px;
+}

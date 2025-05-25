@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body></body>
+    <script>
+        // new Promise((resolve, reject) => { ... })
+        const promise = new Promise((resolve, reject) => {
+            // do thing (possibly asy) - smile, cry, .....bla
+            // 보통 response 가져옴 
+            // .then(response => {
+                // if (response.ok) {
+                // resolve("성공적으로 데이터를 가져옴");
+            if (/* every thing is ok - she marry u*/ true) {
+                resolve("Every thing work");
+            } else if (/* she doesn't want u*/ false) {
+                reject(Error("she broke my heart"));
+            }
+        });
+
+        // promise.then(successCallback, errorCallback)
+        promise.then(
+            (result) => console.log(result),
+            (err) => console.log(err)
+        );
+    </script>
+</html>

@@ -1,0 +1,36 @@
+main {
+    height: 680px;
+}
+
+form[name="update-form"] {
+    flex-direction: column;
+    gap: 13px;
+}
+form[name="update-form"] input {
+    width: 350px;
+    height: 50px;
+    padding: 0 15px;
+    border: thin solid lightgray;
+    border-radius: 10px;
+}
+form[name="update-form"] button {
+    width: 350px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: var(--main-orange);
+    color: white;
+    font-weight: 600;
+
+    &:hover {
+        background-color: #ef590e;
+    }
+}
+
+#update-title {
+    margin-bottom: 20px;
+}
+#warning-msg {
+    color: var(--main-orange);
+    font-size: 13px;
+    display: none;
+}

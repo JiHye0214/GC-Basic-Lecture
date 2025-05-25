@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function bubbleSort(arr) {
+        // iterate over each item in the array
+        // for(let i=0; i<arr.length-1; i++) {
+        //     then for each item compare each 2 items
+        //     swapping if the condition is met:
+        //     for(let j=0; j<arr.length-i-1; j++) {
+        //         swap if left value is greater than right value
+        //         if(arr[j] > arr[j+1]) {
+        //             const temp = arr[j];
+        //             arr[j] = arr[j + 1];
+        //             arr[j + 1] = temp;
+        //         }
+        //     }
+        // }
+
+        arr.sort((a,b) => a-b);
+
+        return arr;
+    }
+
+    var myArr = [43, 321, 12, 5, 466, 1, 11, 0];
+
+    // return sorted array without changing your array
+    console.log(bubbleSort(myArr));
+</script>
+</html>
