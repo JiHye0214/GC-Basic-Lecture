@@ -92,14 +92,15 @@ $("#signin-btn").on("click", () => {
 
         // 에러 메시지 출력
         if (!isPassed) {
-            warnMsg.html(errorMsg).show();
+            warnMsg.html(errorMsg);
         }
     });
 
     if (isPassed) {
-        warnMsg.hide();
+        warnMsg.html("");
         // $("form[name='signin-form']").submit();
 
+        // inform set 
         const inputs = $("form[name='signin-form']").find("input").toArray();
         const inputValues = inputs
             .filter((input, index) => index !== 2)
@@ -112,12 +113,13 @@ $("#signin-btn").on("click", () => {
 
         const newUser = new User(...inputValues);
         // send
-        const flatService = new FlatService("http://localhost:3000/api/user");
+        const flatService = new FlatService("http://localhost:3000/api/user/register");
         flatService
             .sendFlatData(newUser.toPlainObject())
             .then((result) => {
                 // console.log("Success sending data", result);
-                window.location.href = "http://127.0.0.1:5501/Final_RentEase/pages/home.html";
+                window.location.href = "http://127.0.0.1:5500/pages/login.html";
+                alert(result.message);
             })
             .catch((error) => {
                 // console.log("Fail sending data", error);

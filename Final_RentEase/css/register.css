@@ -24,7 +24,6 @@ form[name="signin-form"] button {
 
 #warning-msg {
     height: 20px;
-    margin-top: 10px;
     color: var(--main-orange);
     font-size: 13px;
 }

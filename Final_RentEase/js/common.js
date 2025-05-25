@@ -13,7 +13,7 @@ class User {
             id: this.id,
             email: this.email,
             password: this.password,
-            firstname: this.firstName,
+            firstName: this.firstName,
             lastName: this.lastName,
             bDay: this.bDay,
         };

@@ -5,6 +5,7 @@ const express = require("express"); // Express 웹 프레임워크 : 웹서버 �
 const cors = require("cors"); // 다른 도메인 허용해 주는 미들웨어
 const fs = require("fs"); // fs : Node.js 기본 모듈 (파일 읽/쓰)
 const path = require("path"); // path : Node.js 기본 모듈 (경로 조작)
+const { log } = require("console");
 
 const app = express(); // app : 서버 인스턴스
 app.use(cors()); // CORS 에러 방지 목적
@@ -29,20 +30,14 @@ function readJsonFile(filePath) {
     return [];
 }
 
-function writeJsonFile(filePath, data, res) {
-    // json 파일 경로, 넣을 값, 응답할 곳
-    // JSON.stringify(값, 포함할 속성(모두면 null), 들여쓰기 수)
-    fs.writeFile(filePath, JSON.stringify(data, null, 2), (err) => {
-        if (err) {
-            console.error(`Error writing ${filePath}:`, err);
-            if (res) res.status(500).json({ message: "File store fail" });
-            return false;
-        }
-
-        // 서버는 요청을 받으면 반드시 응답을 보내야 한다.
-        // 안 보내면 무한 대기 상태거나 요청 처리 에러 가능성 o
-        if (res) res.json({ message: "Data saved", data });
-        return true;
+function writeJsonFile(filePath, data) {
+    return new Promise((resolve, reject) => {
+        // json 파일 경로, 넣을 값, 응답할 곳
+        // JSON.stringify(값, 포함할 속성(모두면 null), 들여쓰기 수)
+        fs.writeFile(filePath, JSON.stringify(data, null, 2), (err) => {
+            if (err) return reject(err);
+            resolve(data);
+        });
     });
 }
 
@@ -52,9 +47,12 @@ const FLAT_DATA_FILE = path.join(__dirname, "data", "flat.json"); // __dirname :
 let flatData = readJsonFile(FLAT_DATA_FILE);
 
 app.post("/api/flat", (req, res) => {
-    const newData = req.body;
-    flatData.push(newData);
-    writeJsonFile(FLAT_DATA_FILE, flatData, res);
+    const newFlat = req.body;
+    flatData.push(newFlat);
+
+    writeJsonFile(FLAT_DATA_FILE, flatData)
+        .then(() => res.json({ message: "Data saved", data: newFlat }))
+        .catch(() => res.status(500).json({ message: "File store fail" }));
 });
 
 app.get("/api/flat", (req, res) => {
@@ -71,23 +69,44 @@ app.get("/api/flat", (req, res) => {
 const USER_DATA_FILE = path.join(__dirname, "data", "user.json");
 let userData = readJsonFile(USER_DATA_FILE);
 
-app.post("/api/user", (req, res) => {
-    let uniqueIdx = userData.length;
-    const newData = req.body;
+const USER_CURRENT_FILE = path.join(__dirname, "data", "userCurrent.json");
 
-    const emailExists = userData.some((user) => user.email === newData.email);
+app.post("/api/user/register", (req, res) => {
+    let uniqueIdx = userData.length;
+    const newUser = req.body;
+
+    const emailExists = userData.some((user) => user.email === newUser.email);
     if (emailExists) {
-        console.log("⚠️ This email is already in use: ", newData.email);
+        console.log("⚠️ This email is already in use: ", newUser.email);
         return res.status(400).json({ message: "⚠️ This email is already in use" });
     }
 
     // 이메일 중복 조건문에서 return을 때려서
     // 참일 시 아래 코드는 실행하지 않음
-    newData.id = uniqueIdx;
-    userData.push(newData);
+    newUser.id = uniqueIdx;
+    userData.push(newUser);
 
-    writeJsonFile(USER_DATA_FILE, userData, res);
+    writeJsonFile(USER_DATA_FILE, userData)
+        .then(() => res.json({ message: "Success : Register", data: newUser }))
+        .catch(() => res.status(500).json({ message: "File store fail" }));
 });
+
+app.post("/api/user/login", (req, res) => {
+    const loginInputs = req.body; // email, password Array
+
+    const findUser = userData.find((user) => user.email === loginInputs[0] && user.password === loginInputs[1]);
+    if (!findUser) {
+        console.log("⚠️ Please check your email and password again.");
+        return res.status(400).json({ message: "⚠️ Please check your email and password again." });
+    }
+
+    // for mypage, home(fav)
+    writeJsonFile(USER_CURRENT_FILE, findUser)
+        .then(() => res.json({ message: "Success : Login", data: findUser }))
+        .catch(() => res.status(500).json({ message: "File store fail" }));
+});
+
+// ⭐⭐⭐ 이제 로그인한 정보 가져와서 프로필페이지 / 헤더 이름 / 헤더 로그인아웃 버튼 조작 / 홈 fav 그리면 됨 
 
 app.get("/api/user", (req, res) => {
     if (userData.length > 0) {
