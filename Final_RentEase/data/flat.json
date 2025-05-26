@@ -1,0 +1,46 @@
+[
+  {
+    "city": "Vancouver",
+    "stName": "123456",
+    "stNum": "132",
+    "size": "55",
+    "ac": "false",
+    "year": "2023",
+    "price": "23233",
+    "date": "2025-05-25",
+    "userId": 0
+  },
+  {
+    "city": "Seoul",
+    "stName": "Robson",
+    "stNum": "222",
+    "size": "232323",
+    "ac": "true",
+    "year": "2099",
+    "price": "99999",
+    "date": "2025-05-14",
+    "userId": 0
+  },
+  {
+    "city": "Seoul",
+    "stName": "sefe",
+    "stNum": "222",
+    "size": "5",
+    "ac": "true",
+    "year": "2024",
+    "price": "55555",
+    "date": "2024-05-01",
+    "userId": 1
+  },
+  {
+    "city": "Vancouver",
+    "stName": "jelly",
+    "stNum": "777",
+    "size": "77778888",
+    "ac": "false",
+    "year": "2026",
+    "price": "3333",
+    "date": "2025-02-04",
+    "userId": 1
+  }
+]

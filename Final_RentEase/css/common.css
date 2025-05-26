@@ -62,7 +62,10 @@ nav {
 #header-user {
     gap: 30px;
 }
-#header-user #header-hello span:hover {
+#header-user > p {
+    display: none;
+}
+#header-user #header-hello:hover {
     text-decoration: underline;
 }
 #header-user button {

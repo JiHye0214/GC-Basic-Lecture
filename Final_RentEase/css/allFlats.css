@@ -1,10 +1,12 @@
 #all-table {
     width: 1200px;
+    min-width: 1200px;
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
     padding-bottom: 50px;
 }
+
 .all-item {
     width: 228px;
     border-radius: 10px;
@@ -18,13 +20,9 @@
 .all-item .flat-item-detail {
     padding: 10px 0;
 }
-.all-item .flat-item-detail .flat-address {
-    gap: 5px;
+
+.flat-item-detail > ul {
+    display: flex;
+    justify-content: space-between;
 }
-.all-item .all-remove-btn {
-    display: none;
-    width: 35px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
+

@@ -113,9 +113,9 @@ $("#signin-btn").on("click", () => {
 
         const newUser = new User(...inputValues);
         // send
-        const flatService = new FlatService("http://localhost:3000/api/user/register");
+        const flatService = new FlatService("http://localhost:5000/api/user/register");
         flatService
-            .sendFlatData(newUser.toPlainObject())
+            .postData(newUser.toPlainObject())
             .then((result) => {
                 // console.log("Success sending data", result);
                 window.location.href = "http://127.0.0.1:5500/pages/login.html";

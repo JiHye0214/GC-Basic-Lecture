@@ -6,8 +6,9 @@
         <link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon" />
         <link rel="stylesheet" href="../css/newFlat.css" />
         <link rel="stylesheet" href="../css/common.css" />
-        <script defer src="../js/newFlat.js"></script>
-        <script defer src="../js/common.js"></script>
+        <script defer src="../js/class.js"></script>
+        <script defer type="module" src="../js/common.js"></script>
+        <script defer type="module" src="../js/newFlat.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <title>RentEase - New Flat</title>
     </head>
@@ -22,14 +23,13 @@
                 </nav>
 
                 <div id="header-user" class="display-flex-set">
-                    <a href="../pages/profileUpdate.html" id="header-hello" class="btn-hover">Hello, <span>JIHE PARK</span></a>
-                    <!-- <button id="header-login" class="btn-hover">Log in</button> -->
-                    <button id="header-logout">Log out</button>
+                    <p>Hello, <a href="../pages/profileUpdate.html" id="header-hello" class="btn-hover">JIHE PARK</a></p>
+                    <button id="header-logout">Log in</button>
                 </div>
             </header>
 
             <main class="display-flex-set">
-                <form id="new-slide-frame">
+                <div id="new-slide-frame">
                     <div class="slide-item show display-flex-set">
                         <h1>Creat New Flat Post ✏️</h1>
                         <button id="new-start-btn" class="slide-btn next" data-slide="0" type="button">Start</button>
@@ -140,7 +140,7 @@
                             <button id="upload-btn" type="button">Upload</button>
                         </div>
                     </div>
-                </form>
+                </div>
             </main>
         </div>
     </body>

@@ -6,8 +6,9 @@
         <link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon" />
         <link rel="stylesheet" href="../css/profileUpdate.css" />
         <link rel="stylesheet" href="../css/common.css" />
-        <script defer src="../js/profileUpdate.js"></script>
-        <script defer src="../js/common.js"></script>
+        <script defer src="../js/class.js"></script>
+        <script defer type="module" src="../js/common.js"></script>
+        <script defer type="module" src="../js/profileUpdate.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <title>RentEase - Profile Update</title>
     </head>
@@ -22,10 +23,8 @@
                 </nav>
 
                 <div id="header-user" class="display-flex-set">
-                    <!-- 근데 난 프사로 해 놓고 마이페이지 들어가는 게 좋은뎁... -->
-                    <a href="../pages/profileUpdate.html" id="header-hello" class="btn-hover">Hello, <span>JIHE PARK</span></a>
-                    <!-- <button id="header-login" class="btn-hover">Log in</button> -->
-                    <button id="header-logout">Log out</button>
+                    <p>Hello, <a href="../pages/profileUpdate.html" id="header-hello" class="btn-hover">JIHE PARK</a></p>
+                    <button id="header-logout">Log in</button>
                 </div>
             </header>
 
@@ -34,12 +33,12 @@
                     <h3 id="update-title">Profile Update</h3>
                     <p id="warning-msg"></p>
     
-                    <input id="email" type="text" placeholder="E-mail" value="qkrwlgp1526@gmail.com"/>
+                    <input id="email" type="text" placeholder="E-mail"/>
                     <input id="pw" type="password" placeholder="New Password" />
                     <input id="pwRe" type="password" placeholder="Confirm Password" />
-                    <input id="nameFirst" type="text" placeholder="First Name" value="Jihye"/>
-                    <input id="nameLast" type="text" placeholder="Last Name" value="Park"/>
-                    <input id="birth" type="date" value="2004-02-14"/>
+                    <input id="nameFirst" type="text" placeholder="First Name"/>
+                    <input id="nameLast" type="text" placeholder="Last Name"/>
+                    <input id="birth" type="date"/>
     
                     <button type="button" id="update-btn" class="btn-hover">Update</button>
                 </form>

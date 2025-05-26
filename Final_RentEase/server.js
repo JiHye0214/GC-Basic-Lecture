@@ -9,11 +9,16 @@ const { log } = require("console");
 
 const app = express(); // app : 서버 인스턴스
 app.use(cors()); // CORS 에러 방지 목적
-app.use(express.json()); // JSON 형식 요청 바디를 req.body로 해석 가능
+app.use(
+    express.json({
+        // strict: true - 반드시 객체여야 파싱 시도함 (배열 또는 null은 에러)
+        strict: false, // 배열 파싱을 허용하게 해 주는 옵션
+    })
+); // JSON 형식 요청 바디를 req.body로 해석 가능
 
 // 서버 시작 시 데이터 불러오기
 // 관리해야 하는 json이 여러개일 때는 함수로 만들어도 됨 (보통 2개 이상일 테니 걍 만들자)
-function readJsonFile(filePath) {
+function readJsonFile(filePath, needStored) {
     try {
         if (fs.existsSync(filePath)) {
             // 파일 존재 파악
@@ -21,7 +26,11 @@ function readJsonFile(filePath) {
             if (fileContent.trim()) {
                 // 내용 있으면
                 const data = JSON.parse(fileContent); // 문자열로 된 JSON 데이터를 JS 객체(배열)로 변환
-                return Array.isArray(data) ? data : []; // 배열 체크
+
+                if (needStored) {
+                    return Array.isArray(data) ? data : []; // 배열 체크
+                }
+                return data;
             }
         }
     } catch (err) {
@@ -44,7 +53,7 @@ function writeJsonFile(filePath, data) {
 // fetch (flat) ------------------------------------------------
 // flat.json 파일 경로 설정
 const FLAT_DATA_FILE = path.join(__dirname, "data", "flat.json"); // __dirname : server.js 파일 경로
-let flatData = readJsonFile(FLAT_DATA_FILE);
+let flatData = readJsonFile(FLAT_DATA_FILE, true);
 
 app.post("/api/flat", (req, res) => {
     const newFlat = req.body;
@@ -54,20 +63,25 @@ app.post("/api/flat", (req, res) => {
         .then(() => res.json({ message: "Data saved", data: newFlat }))
         .catch(() => res.status(500).json({ message: "File store fail" }));
 });
-
 app.get("/api/flat", (req, res) => {
-    if (flatData.length > 0) {
-        res.json(flatData); // 항상 응답은 res.json
-    } else {
-        // 배열이 비어 있으면 404 + msg
-        res.status(404).json({ message: "there's no stored data" });
+    const nowUserId = req.query.userId;
+
+    if (!flatData || flatData.length === 0) {
+        return res.status(404).json({ message: "There's no stored flat data." });
     }
+    if (nowUserId) {
+        const userIdNumber = Number(nowUserId);
+        const findFlats = flatData.filter((flat) => flat.userId === userIdNumber);
+        console.log(findFlats);
+        return res.json(findFlats);
+    }
+    return res.json(flatData);
 });
 
 // fetch (user) ------------------------------------------------
 // user.json 파일 경로 설정
 const USER_DATA_FILE = path.join(__dirname, "data", "user.json");
-let userData = readJsonFile(USER_DATA_FILE);
+let userData = readJsonFile(USER_DATA_FILE, true);
 
 const USER_CURRENT_FILE = path.join(__dirname, "data", "userCurrent.json");
 
@@ -93,7 +107,6 @@ app.post("/api/user/register", (req, res) => {
 
 app.post("/api/user/login", (req, res) => {
     const loginInputs = req.body; // email, password Array
-
     const findUser = userData.find((user) => user.email === loginInputs[0] && user.password === loginInputs[1]);
     if (!findUser) {
         console.log("⚠️ Please check your email and password again.");
@@ -103,21 +116,26 @@ app.post("/api/user/login", (req, res) => {
     // for mypage, home(fav)
     writeJsonFile(USER_CURRENT_FILE, findUser)
         .then(() => res.json({ message: "Success : Login", data: findUser }))
-        .catch(() => res.status(500).json({ message: "File store fail" }));
+        .catch(() => res.status(500).json({ message: "Login fail" }));
 });
 
-// ⭐⭐⭐ 이제 로그인한 정보 가져와서 프로필페이지 / 헤더 이름 / 헤더 로그인아웃 버튼 조작 / 홈 fav 그리면 됨 
+app.post("/api/user/logout", (req, res) => {
+    writeJsonFile(USER_CURRENT_FILE, {})
+        .then(() => res.json({ message: "Success : Logout" }))
+        .catch(() => res.status(500).json({ message: "Logout fail" }));
+});
 
+// ⭐⭐⭐ 이제 홈 fav 그리면 됨
 app.get("/api/user", (req, res) => {
-    if (userData.length > 0) {
-        res.json(userData);
-    } else {
-        res.status(404).json({ message: "there's no stored data" });
+    const currentUser = readJsonFile(USER_CURRENT_FILE, false);
+    if (!currentUser) {
+        return res.status(404).json({ message: "there's no stored user data" });
     }
+    return res.json(currentUser);
 });
 
 // 서버 시작
-const PORT = 3000;
+const PORT = 5000;
 app.listen(PORT, () => {
     // app.listen() : Express 서버를 켜는 함수
     console.log(`server running : http://localhost:${PORT}`); // 잘 켜졌는지 확인

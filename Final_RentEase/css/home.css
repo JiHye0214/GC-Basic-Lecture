@@ -6,6 +6,7 @@
     gap: 15px;
     padding-bottom: 50px;
 }
+
 .fav-item {
     width: 228px;
     border-radius: 10px;
@@ -19,13 +20,8 @@
 .fav-item .flat-item-detail {
     padding: 10px 0;
 }
-.fav-item .flat-item-detail .flat-address {
-    gap: 5px;
-}
-.fav-item .fav-remove-btn {
-    display: none;
-    width: 35px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
+
+.flat-item-detail > ul {
+    display: flex;
+    justify-content: space-between;
 }
