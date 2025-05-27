@@ -1,1 +1,11 @@
-{}
+{
+  "email": "hello@gmail.com",
+  "password": "123456*hh",
+  "firstName": "JUNGKOOK",
+  "lastName": "JEON",
+  "bDay": "1997-09-01",
+  "id": 2,
+  "likeFlats": [
+    2
+  ]
+}

@@ -30,7 +30,7 @@ form[name="update-form"] button {
     margin-bottom: 20px;
 }
 #warning-msg {
+    height: 20px;
     color: var(--main-orange);
     font-size: 13px;
-    display: none;
 }

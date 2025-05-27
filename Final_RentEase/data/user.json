@@ -1,18 +1,31 @@
 [
   {
-    "email": "qkrwlgp1526@gmail.com",
-    "password": "123456*dd",
+    "email": "heyheydV13@kia.com",
+    "password": "123456*rr",
     "firstName": "JIHYE",
     "lastName": "PARK",
     "bDay": "2004-02-14",
-    "id": 0
+    "id": 0,
+    "likeFlats": [
+      0
+    ]
   },
   {
-    "email": "qkralstnwlgp@naver.com",
-    "password": "123456*ff",
+    "email": "heyheyV13@kia.com",
+    "password": "123456*kk",
     "firstName": "DOYOUNG",
     "lastName": "KIM",
-    "bDay": "2003-05-25",
-    "id": 1
+    "bDay": "2003-05-27"
+  },
+  {
+    "email": "hello@gmail.com",
+    "password": "123456*hh",
+    "firstName": "JUNGKOOK",
+    "lastName": "JEON",
+    "bDay": "1997-09-01",
+    "id": 2,
+    "likeFlats": [
+      2
+    ]
   }
 ]

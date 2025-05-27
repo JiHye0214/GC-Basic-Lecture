@@ -54,7 +54,7 @@ header {
     align-items: center;
 }
 #header-logo {
-    width: 200px;;
+    width: 200px;
 }
 nav {
     gap: 70px;
@@ -91,4 +91,27 @@ nav {
 }
 .page-title .page-filter img {
     width: 25px;
+}
+
+.handle-btn {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-repeat: no-repeat;        
+    background-size: cover;              
+    background-position: center center; 
+}
+.handle-btn.rem-btn {
+    background-image: url("../img/close.png");
+}
+.handle-btn.fav-btn {
+    background-image: url("../img/star-white.png");
+}
+.handle-btn.fav-clicked {
+    background-image: url("../img/star-yellow.png");
+}
+.handle-btn.none {
+    display: none;
 }

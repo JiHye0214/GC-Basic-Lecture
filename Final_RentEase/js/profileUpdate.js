@@ -110,7 +110,32 @@ async function renderProfile() {
 
         if (isPassed) {
             warnMsg.hide();
-            $("form[name='update-form']").submit();
+
+            // inform set
+            const inputs = $("form[name='update-form']").find("input").toArray();
+            const inputValues = inputs
+                .filter((input, index) => index !== 2)
+                .map((input, index) => {
+                    if (index === 2 || index === 3) {
+                        return input.value.toUpperCase();
+                    }
+                    return input.value;
+                });
+
+            const updatedUser = new User(...inputValues);
+
+            // send
+            const flatService = new FlatService("http://localhost:5000/api/user/update");
+            flatService
+                .postData(updatedUser.toPlainObject())
+                .then((result) => {
+                    window.location.href = "http://127.0.0.1:5500/pages/home.html";
+                    alert(result.message);
+                })
+                .catch((error) => {
+                    // console.log("Fail sending data", error);
+                    warnMsg.html(error.message || "").show();
+                });
         }
     });
 }

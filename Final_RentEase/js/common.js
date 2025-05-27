@@ -1,11 +1,16 @@
 $(document).ready(setUserData);
 
 export let gotUser = null;
+export let gotAllFlats = null;
 export let isLogined = false;
 export async function setUserData() {
     try {
         const userService = new FlatService("http://localhost:5000/api/user");
         gotUser = await userService.getData();
+        
+        const flatService = new FlatService("http://localhost:5000/api/flat");
+        gotAllFlats = await flatService.getData();
+
         isLogined = Object.keys(gotUser).length > 0;
 
         renderHeader();

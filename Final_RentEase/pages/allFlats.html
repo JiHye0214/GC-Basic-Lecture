@@ -8,12 +8,46 @@
         <link rel="stylesheet" href="../css/common.css" />
         <script defer src="../js/class.js"></script>
         <script defer type="module" src="../js/common.js"></script>
-        <script defer src="../js/allFlats.js"></script>
+        <script defer type="module" src="../js/allFlats.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <title>RentEase - All Flats</title>
     </head>
     <body>
         <div class="background">
+            <!-- filter modal -->
+            <div id="filter-modal-back">
+                <div id="filter-modal">
+                    <p>Search Filter</p>
+                    <div id="filter-filtering">
+                        <!-- 지역 : 올라온 것들만 중복 없이 옵션 넣기 -->
+                         <!-- 가격 범위 -->
+                          <div>
+                              <label>Price Range</label>
+                              <input name="price" type="text" placeholder="min">
+                              <input name="price" type="text" placeholder="max">
+                          </div>
+                          <!-- size 범위 -->
+                          <div>
+                              <label>Area Size Range</label>
+                              <input name="size" type="text" placeholder="min">
+                              <input name="size" type="text" placeholder="max">
+                          </div>
+                    </div>
+                    <div id="filter-sort">
+                        <input id="aToZ" name="sort" type="radio" />
+                        <label for="aToZ" name="sort">A-Z</label>
+                        <input id="priceLH" name="sort" type="radio" />
+                        <label for="priceLH" name="sort">Price(Low to high)</label>
+                        <input id="priceHL" name="sort" type="radio" />
+                        <label for="priceHL" name="sort">Price(High to low)</label>
+                        <input id="sizeLH" name="sort" type="radio" />
+                        <label for="sizeLH" name="sort">Size(Low to high)</label>
+                        <input id="sizeHL" name="sort" type="radio" />
+                        <label for="sizeHL" name="sort">Size(High to low)</label>
+                    </div>
+                </div>
+            </div>
+
             <!-- common header -->
             <header>
                 <nav class="display-flex-set">

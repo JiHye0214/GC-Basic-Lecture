@@ -53,27 +53,33 @@ function writeJsonFile(filePath, data) {
 // fetch (flat) ------------------------------------------------
 // flat.json 파일 경로 설정
 const FLAT_DATA_FILE = path.join(__dirname, "data", "flat.json"); // __dirname : server.js 파일 경로
-let flatData = readJsonFile(FLAT_DATA_FILE, true);
 
 app.post("/api/flat", (req, res) => {
+    let flatData = readJsonFile(FLAT_DATA_FILE, true);
+    let uniqueIdx = flatData.length;
     const newFlat = req.body;
+
+    newFlat.id = uniqueIdx;
     flatData.push(newFlat);
 
     writeJsonFile(FLAT_DATA_FILE, flatData)
         .then(() => res.json({ message: "Data saved", data: newFlat }))
         .catch(() => res.status(500).json({ message: "File store fail" }));
 });
-app.get("/api/flat", (req, res) => {
-    const nowUserId = req.query.userId;
+app.post("/api/flat/remove", (req, res) => {
+    let flatData = readJsonFile(FLAT_DATA_FILE, true);
+    const { flatId } = req.body;
+    const updatedFlats = flatData.filter((flat) => flat.id !== Number(flatId));
 
-    if (!flatData || flatData.length === 0) {
+    writeJsonFile(FLAT_DATA_FILE, updatedFlats)
+        .then(() => res.json({ message: "Success : Remove Flat", data: updatedFlats }))
+        .catch(() => res.status(500).json({ message: "Remove fail" }));
+});
+
+app.get("/api/flat", (req, res) => {
+    let flatData = readJsonFile(FLAT_DATA_FILE, true);
+    if (!flatData) {
         return res.status(404).json({ message: "There's no stored flat data." });
-    }
-    if (nowUserId) {
-        const userIdNumber = Number(nowUserId);
-        const findFlats = flatData.filter((flat) => flat.userId === userIdNumber);
-        console.log(findFlats);
-        return res.json(findFlats);
     }
     return res.json(flatData);
 });
@@ -81,11 +87,11 @@ app.get("/api/flat", (req, res) => {
 // fetch (user) ------------------------------------------------
 // user.json 파일 경로 설정
 const USER_DATA_FILE = path.join(__dirname, "data", "user.json");
-let userData = readJsonFile(USER_DATA_FILE, true);
-
 const USER_CURRENT_FILE = path.join(__dirname, "data", "userCurrent.json");
 
 app.post("/api/user/register", (req, res) => {
+    let userData = readJsonFile(USER_DATA_FILE, true);
+
     let uniqueIdx = userData.length;
     const newUser = req.body;
 
@@ -98,6 +104,7 @@ app.post("/api/user/register", (req, res) => {
     // 이메일 중복 조건문에서 return을 때려서
     // 참일 시 아래 코드는 실행하지 않음
     newUser.id = uniqueIdx;
+    newUser.likeFlats = [];
     userData.push(newUser);
 
     writeJsonFile(USER_DATA_FILE, userData)
@@ -106,6 +113,8 @@ app.post("/api/user/register", (req, res) => {
 });
 
 app.post("/api/user/login", (req, res) => {
+    let userData = readJsonFile(USER_DATA_FILE, true);
+
     const loginInputs = req.body; // email, password Array
     const findUser = userData.find((user) => user.email === loginInputs[0] && user.password === loginInputs[1]);
     if (!findUser) {
@@ -124,13 +133,91 @@ app.post("/api/user/logout", (req, res) => {
         .then(() => res.json({ message: "Success : Logout" }))
         .catch(() => res.status(500).json({ message: "Logout fail" }));
 });
+app.post("/api/user/update", (req, res) => {
+    const reqUser = req.body;
 
-// ⭐⭐⭐ 이제 홈 fav 그리면 됨
+    let userData = readJsonFile(USER_DATA_FILE, true);
+    const currentUser = readJsonFile(USER_CURRENT_FILE, false);
+
+    if (reqUser.password === "") reqUser.password = currentUser.password;
+    reqUser.id = currentUser.id;
+    reqUser.likeFlats = currentUser.likeFlats;
+
+    const findUserIdx = userData.findIndex((user) => user.email === currentUser.email);
+
+    const isEmailChanged = reqUser.email !== currentUser.email;
+    if (isEmailChanged) {
+        const isEmailDuplicated = userData.some((user) => user.email === reqUser.email);
+        if (isEmailDuplicated) {
+            console.log("⚠️ This email is already in use: ", reqUser.email);
+            return res.status(400).json({ message: "⚠️ This email is already in use" });
+        }
+    }
+
+    userData[findUserIdx] = reqUser;
+    Promise.all([writeJsonFile(USER_DATA_FILE, userData), writeJsonFile(USER_CURRENT_FILE, reqUser)])
+        .then(() => {
+            res.json({ message: "Success : Update Profile", data: reqUser });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({ message: "File update" });
+        });
+});
+app.post("/api/flat/like", (req, res) => {
+    let userData = readJsonFile(USER_DATA_FILE, true);
+
+    const flatId = req.body.flatId;
+    const isLiked = req.body.isLiked;
+
+    const currentUser = readJsonFile(USER_CURRENT_FILE, false);
+    if (!currentUser || !currentUser.likeFlats) {
+        return res.status(404).json({ message: "Current user data is invalid" });
+    }
+
+    const flatIdStr = Number(flatId);
+    const existsId = currentUser.likeFlats.some((fId) => fId === flatIdStr);
+    const findIdx = userData.findIndex((user) => user.id === currentUser.id);
+    if (findIdx === -1) {
+        return res.status(404).json({ message: "User not found " });
+    }
+
+    let updatedUser;
+    if (isLiked) {
+        if (!existsId) {
+            updatedUser = {
+                ...currentUser,
+                likeFlats: [...currentUser.likeFlats, flatIdStr],
+            };
+        } else {
+            updatedUser = currentUser;
+        }
+    } else {
+        updatedUser = {
+            ...currentUser,
+            likeFlats: currentUser.likeFlats.filter((fId) => fId !== flatIdStr),
+        };
+    }
+
+    userData[findIdx] = updatedUser;
+
+    // 두 파일 저장 --> Promise.all
+    // 응답 두 번 보내면 무조건 에러남
+    // writeJsonFile(USER_DATA_FILE, userData)
+    // writeJsonFile(USER_CURRENT_FILE, currentUser)
+    Promise.all([writeJsonFile(USER_DATA_FILE, userData), writeJsonFile(USER_CURRENT_FILE, updatedUser)])
+        .then(() => {
+            res.json({ message: "Success : Updated like flats", data: updatedUser });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({ message: "File store fail" });
+        });
+});
+
 app.get("/api/user", (req, res) => {
     const currentUser = readJsonFile(USER_CURRENT_FILE, false);
-    if (!currentUser) {
-        return res.status(404).json({ message: "there's no stored user data" });
-    }
+
     return res.json(currentUser);
 });
 
