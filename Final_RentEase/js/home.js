@@ -27,6 +27,10 @@ const renderHome = (allFlats) => {
                                 ${flat.stName} ${flat.stNum}, ${flat.city}
                             </li>
                         </ul>
+                        <ul class="flat-year">
+                            <li>Size</li>
+                            <li>${flat.size}㎡</li>
+                        </ul>
                         <ul class="flat-ac">
                             <li>AC</li>
                             <li>${flat.ac ? "Y" : "N"}</li>

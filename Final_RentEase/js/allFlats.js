@@ -21,6 +21,10 @@ async function renderAllFlats(allFlats) {
                                 ${flat.stName} ${flat.stNum}, ${flat.city}
                             </li>
                         </ul>
+                        <ul class="flat-year">
+                            <li>Size</li>
+                            <li>${flat.size}㎡</li>
+                        </ul>
                         <ul class="flat-ac">
                             <li>AC</li>
                             <li>${flat.ac ? "Y" : "N"}</li>
@@ -56,7 +60,7 @@ async function renderAllFlats(allFlats) {
     $("#all-table").html(contents);
     setFavBtn();
     setFilterBtn();
-};
+}
 
 const setFavBtn = () => {
     $("#all-table").on("click", ".fav-btn", (e) => {
@@ -80,7 +84,64 @@ const setFavBtn = () => {
     });
 };
 const setFilterBtn = () => {
+    const filterNav = document.querySelector("#filter-nav");
+
     $(".page-filter").on("click", () => {
-        console.log("click");
-    })
-}
+        $(filterNav).addClass("open");
+    });
+
+    $("#filter-close").on("click", () => {
+        $(filterNav).removeClass("open");
+    });
+
+    $("#reset-btn").on("click", () => {
+        $("#filter-filtering input").each((index, input) => {
+            input.value = "";
+        });
+        $("#filter-sort input").each((index, input) => {
+            input.checked = false;
+        });
+    });
+
+    $("#apply-btn").on("click", () => {
+        const findCity = document
+            .querySelector("input[name='city']")
+            .value.split("")
+            .map((lett, lettIdx) => {
+                if (lettIdx === 0) {
+                    return lett.toUpperCase();
+                } else {
+                    return lett.toLowerCase();
+                }
+            })
+            .join("");
+        const findPrice = [...document.querySelectorAll("input[name='price']")].map((input) => {
+            if (input.value === "") {
+                return undefined;
+            }
+            return input.value;
+        });
+        const findSize = [...document.querySelectorAll("input[name='size']")].map((input) => {
+            if (input.value === "") {
+                return undefined;
+            }
+            return input.value;
+        });
+        const sortWay = document.querySelector("#filter-sort input:checked")?.id; // 물음표 사이에 낌 : 없으면 undifined 할 거라는 뜻
+
+        // encode URI
+        const flatService = new FlatService(
+            `http://localhost:5000/api/flat/search?city=${encodeURIComponent(
+                findCity.length > 0 ? findCity : undefined
+            )}&price=${encodeURIComponent(findPrice[0] + "+" + findPrice[1])}&size=${encodeURIComponent(
+                findSize[0] + "+" + findSize[1]
+            )}&sort=${encodeURIComponent(sortWay)}`
+        );
+
+        async function findFlatResult() {
+            const gotResults = await flatService.getData();
+            renderAllFlats(gotResults);
+        }
+        findFlatResult();
+    });
+};

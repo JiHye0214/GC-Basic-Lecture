@@ -83,6 +83,75 @@ app.get("/api/flat", (req, res) => {
     }
     return res.json(flatData);
 });
+app.get("/api/flat/search", (req, res) => {
+    let flatData = readJsonFile(FLAT_DATA_FILE, true);
+
+    const city = req.query.city === "undefined" ? undefined : req.query.city;
+    const sort = req.query.sort;
+
+    // parseRange() : 쿼리 문자열로 전달된 범위를 해석해서 숫자 범위 배열로 변환
+    // "100+200" ==> [100, 200]
+    const parseRange = (rangeStr) => {
+        if (!rangeStr) return [undefined, undefined];
+
+        const [min, max] = rangeStr.split("+");
+
+        const minVal = min !== "" ? Number(min) : undefined;
+        const maxVal = max !== "" ? Number(max) : undefined;
+
+        return [isNaN(minVal) ? undefined : minVal, isNaN(maxVal) ? undefined : maxVal];
+    };
+    const [minPrice, maxPrice] = parseRange(req.query.price);
+    const [minSize, maxSize] = parseRange(req.query.size);
+
+    const resultData = flatData
+        // city
+        .filter((flat) => {
+            if (city) {
+                return flat.city?.toLowerCase().includes(city.toLowerCase());
+            } else {
+                return true;
+            }
+        }) // price
+        .filter((flat) => {
+            const price = Number(flat.price);
+            if (minPrice !== undefined && price < minPrice) return false;
+            if (maxPrice !== undefined && price > maxPrice) return false;
+            return true;
+        })
+        .filter((flat) => {
+            const size = Number(flat.size);
+            if (minSize !== undefined && size < minSize) return false;
+            if (maxSize !== undefined && size > maxSize) return false;
+            return true;
+        });
+
+    // sort way
+    if (sort) {
+        switch (sort) {
+            case "aToZ":
+                resultData.sort((a, b) => a.city.localeCompare(b.city));
+                break;
+            case "zToA":
+                resultData.sort((a, b) => b.city.localeCompare(a.city));
+                break;
+            case "priceLH":
+                resultData.sort((a, b) => a.price - b.price);
+                break;
+            case "priceHL":
+                resultData.sort((a, b) => b.price - a.price);
+                break;
+            case "sizeLH":
+                resultData.sort((a, b) => a.size - b.size);
+                break;
+            case "sizeHL":
+                resultData.sort((a, b) => b.size - a.size);
+                break;
+        }
+    }
+
+    res.json(resultData);
+});
 
 // fetch (user) ------------------------------------------------
 // user.json 파일 경로 설정

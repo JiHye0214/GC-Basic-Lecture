@@ -14,37 +14,59 @@
     </head>
     <body>
         <div class="background">
-            <!-- filter modal -->
-            <div id="filter-modal-back">
-                <div id="filter-modal">
-                    <p>Search Filter</p>
-                    <div id="filter-filtering">
-                        <!-- 지역 : 올라온 것들만 중복 없이 옵션 넣기 -->
-                         <!-- 가격 범위 -->
-                          <div>
-                              <label>Price Range</label>
-                              <input name="price" type="text" placeholder="min">
-                              <input name="price" type="text" placeholder="max">
-                          </div>
-                          <!-- size 범위 -->
-                          <div>
-                              <label>Area Size Range</label>
-                              <input name="size" type="text" placeholder="min">
-                              <input name="size" type="text" placeholder="max">
-                          </div>
+            <!-- filter nav -->
+            <div id="filter-nav">
+                <img id="filter-close" class="btn-hover" src="../img/close.png" alt="">
+                <h3>Search Filter</h3>
+                <div id="filter-filtering">
+                    <div>
+                        <label>Region</label>
+                        <input name="city" type="text" placeholder="Enter the name of the city">
                     </div>
-                    <div id="filter-sort">
-                        <input id="aToZ" name="sort" type="radio" />
-                        <label for="aToZ" name="sort">A-Z</label>
-                        <input id="priceLH" name="sort" type="radio" />
-                        <label for="priceLH" name="sort">Price(Low to high)</label>
+                    <div>
+                        <label>Price (CAD)</label>
+                        <div>
+                            <input name="price" type="number" placeholder="min" />
+                            <span>~</span>
+                            <input name="price" type="number" placeholder="max" />
+                        </div>
+                    </div>
+                    <div>
+                        <label>Area Size (㎡)</label>
+                        <div>
+                            <input name="size" type="number" placeholder="min" />
+                            <span>~</span>
+                            <input name="size" type="number" placeholder="max" />
+                        </div>
+                    </div>
+                </div>
+                <div id="filter-sort">
+                    <div>
+                        <input id="aToZ" name="sort" type="radio" /> 
+                        <label for="aToZ" name="sort">City (A-Z)</label>
+                    </div>
+                    <div>
+                        <input id="zToA" name="sort" type="radio" /> 
+                        <label for="zToA" name="sort">City (Z-A)</label>
+                    </div>
+                    <div>
+                        <input id="priceLH" name="sort" type="radio"/>
+                        <label for="priceLH" name="sort">Price (Low to high)</label>
+                    </div>
+                    <div>
                         <input id="priceHL" name="sort" type="radio" />
-                        <label for="priceHL" name="sort">Price(High to low)</label>
-                        <input id="sizeLH" name="sort" type="radio" />
-                        <label for="sizeLH" name="sort">Size(Low to high)</label>
-                        <input id="sizeHL" name="sort" type="radio" />
-                        <label for="sizeHL" name="sort">Size(High to low)</label>
+                        <label for="priceHL" name="sort">Price (High to low)</label>
                     </div>
+                    <div>
+                        <input id="sizeLH" name="sort" type="radio" /> <label for="sizeLH" name="sort">Size (Low to high)</label>
+                    </div>
+                    <div>
+                        <input id="sizeHL" name="sort" type="radio" /> <label for="sizeHL" name="sort">Size (High to low)</label>
+                    </div>
+                </div>
+                <div id="filter-apply">
+                    <button id="reset-btn" type="button">Reset</button>
+                    <button id="apply-btn" type="button">Apply</button>
                 </div>
             </div>
 

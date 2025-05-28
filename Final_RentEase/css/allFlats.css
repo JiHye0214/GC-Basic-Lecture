@@ -19,6 +19,9 @@
 }
 .all-item .flat-item-detail {
     padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
 }
 
 .flat-item-detail > ul {

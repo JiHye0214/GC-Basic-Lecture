@@ -83,6 +83,8 @@ nav {
     font-weight: 600;
     font-size: 20px;
 }
+
+/* filter */
 .page-title .page-filter {
     border: thin solid lightgray;
     border-radius: 15px;
@@ -92,6 +94,75 @@ nav {
 .page-title .page-filter img {
     width: 25px;
 }
+#filter-nav {
+    width: 270px;
+    height: 100%;
+    padding: 45px 30px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: white;
+    box-shadow: -3px 0px 20px 0px #9a9a9a;
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    z-index: 1;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(270px);
+    transition: all 0.5s ease;
+}
+#filter-nav.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+#filter-nav #filter-close {
+    width: 16px;
+    position: absolute;
+    top: 27px;
+    right: 29px;
+}
+#filter-filtering input {
+    width: 97.9px;
+    padding: 7px 10px;
+    border: thin solid lightgray;
+    border-radius: 10px;
+
+    &:not(input[type='number']) {
+        width: 210px;
+    }
+}
+#filter-filtering,
+#filter-sort {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-size: 14px;
+}
+#filter-filtering > div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}   
+#filter-sort > div {
+    display: flex;
+    gap: 10px;
+}
+#filter-apply {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+#filter-apply button {
+    padding: 7px 13px;
+    background-color: var(--main-orange);
+    color: white;
+    border-radius: 10px;
+    font-weight: 600;
+}
 
 .handle-btn {
     width: 35px;
@@ -99,12 +170,12 @@ nav {
     position: absolute;
     top: 15px;
     right: 15px;
-    background-repeat: no-repeat;        
-    background-size: cover;              
-    background-position: center center; 
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
 }
 .handle-btn.rem-btn {
-    background-image: url("../img/close.png");
+    background-image: url("../img/remove.png");
 }
 .handle-btn.fav-btn {
     background-image: url("../img/star-white.png");
